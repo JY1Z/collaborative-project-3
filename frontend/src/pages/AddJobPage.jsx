@@ -14,12 +14,16 @@ const AddJobPage = () => {
 
   const navigate = useNavigate();
  
+  const user = JSON.parse(localStorage.getItem("user"))
+  const token = user.token
+  
   const addJob = async (newJob) => {
     try {
       const res = await fetch("/api/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(newJob),
       });
