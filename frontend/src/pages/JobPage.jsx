@@ -13,9 +13,15 @@ const JobPage = () => {
   const [error, setError] = useState(null);
 
   const deleteJob = async (id) => {
+    const user = JSON.parse(localStorage.getItem("user"))
+    const token = user.token
+    
     try {
       const res = await fetch(`/api/jobs/${id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        }
       });
       if (!res.ok) {
         throw new Error("Failed to delete job");
