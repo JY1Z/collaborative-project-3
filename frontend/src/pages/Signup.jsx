@@ -18,7 +18,7 @@ const Signup = () => {
   const membershipStatus = useField("text", true);
 
   const address = useField("text", true);
-  const profilePicture = useField("text");
+  const profilePicture = useField("file", false, "image/*");
 
   const { signup, error } = useSignup("/api/users/signup");
 
