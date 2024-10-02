@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const EditJobPage = () => {
-  const [job, setJob] = useState(null); // Initialize job state
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const { id } = useParams();
@@ -14,6 +13,9 @@ const EditJobPage = () => {
   const [companyName, setCompanyName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [salary, setSalary] = useState("");
+  const [status, setStatus] = useState("");
 
   const navigate = useNavigate();
 
@@ -43,7 +45,6 @@ const EditJobPage = () => {
           throw new Error("Network response was not ok");
         }
         const data = await res.json();
-        setJob(data); // Set the job data
 
         // Initialize form fields with fetched job data
         setTitle(data.title);
@@ -52,6 +53,9 @@ const EditJobPage = () => {
         setCompanyName(data.company.name);
         setContactEmail(data.company.contactEmail);
         setContactPhone(data.company.contactPhone);
+        setLocation(data.location);
+        setSalary(data.salary);
+        setStatus(data.status);
       } catch (error) {
         console.error("Failed to fetch job:", error);
         setError(error.message);
@@ -77,6 +81,9 @@ const EditJobPage = () => {
         contactEmail,
         contactPhone,
       },
+      location,
+      salary,
+      status
     };
 
     const success = await updateJob(updatedJob);
@@ -139,6 +146,25 @@ const EditJobPage = () => {
             value={contactPhone}
             onChange={(e) => setContactPhone(e.target.value)}
           />
+          <label>Location:</label>
+          <input
+            type="text"
+            required
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+          <label>Salary:</label>
+          <input
+            type="text"
+            required
+            value={salary}
+            onChange={(e) => setSalary(e.target.value)}
+          />
+          <label>Status:</label>
+          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
+          </select>
           <button>Update Job</button>
         </form>
       )}

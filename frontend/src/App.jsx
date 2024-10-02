@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
+
+import AuthContextProvider from "./context/AuthContextProvider";
+import { AuthContext } from "./context/AuthContext"
 
 // pages & components
 import Navbar from "./components/Navbar";
@@ -12,6 +15,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
 const App = () => {
+  const { isAuthenticated } = useContext(AuthContext)
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -20,15 +25,15 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/jobs/:id" element={<JobPage />} />
-            <Route path="/jobs/add-job" element={<AddJobPage />} />
-            <Route path="/edit-job/:id" element={<EditJobPage />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
+            {isAuthenticated && <Route path="/add-job" element={<AddJobPage />} />}
+            {isAuthenticated && <Route path="/edit-job/:id" element={<EditJobPage />} />}
+            {!isAuthenticated && <Route path="/signup" element={<Signup />} />}
+            {!isAuthenticated && <Route path="/login" element={<Login />} />}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
       </BrowserRouter>
-    </div>
+    </div >
   );
 };
 
