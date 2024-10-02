@@ -1,7 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-const JobPage = ({ isAuthenticated }) => {
+const JobPage = () => {
+  const { isAuthenticated } = useContext(AuthContext)
+
   const navigate = useNavigate();
   const { id } = useParams();
   const [job, setJob] = useState(null);
@@ -25,7 +29,6 @@ const JobPage = ({ isAuthenticated }) => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        console.log("id: ", id);
         const res = await fetch(`/api/jobs/${id}`);
         if (!res.ok) {
           throw new Error("Network response was not ok");
@@ -59,19 +62,27 @@ const JobPage = ({ isAuthenticated }) => {
         <p>{error}</p>
       ) : (
         <>
-          <h2>{job.title}</h2>
-          <p>Type: {job.type}</p>
-          <p>Description: {job.description}</p>
-          <p>Company: {job.company.name}</p>
-          <p>Email: {job.company.contactEmail}</p>
-          <p>Phone: {job.company.contactPhone}</p>
+          <h2>{job.title} at {job.company.name}</h2>
+          <p>{job.type}</p>
 
-          <>
-            <button onClick={() => onDeleteClick(job._id)}>delete</button>
+          <p className="description">{job.description}</p>
+
+          {job.location && <p><b>Location:</b> {job.location}</p>}
+          {job.salary && <p><b>Salary:</b> {job.salary}</p>}
+          {job.status && <p><b>Status:</b> {job.status}</p>}
+
+          <div className="companyDiv">
+            <h3>Contact {job.company.name}</h3>
+            <p><b>E-mail:</b> {job.company.contactEmail}</p>
+            <p><b>Phone:</b> {job.company.contactPhone}</p>
+          </div>
+
+          {isAuthenticated && <div className="buttonHolder">
+            <button onClick={() => onDeleteClick(job._id)}>Delete</button>
             <button onClick={() => navigate(`/edit-job/${job._id}`)}>
-              edit
+              Edit
             </button>
-          </>
+          </div>}
         </>
       )}
     </div>

@@ -21,6 +21,8 @@ const signupUser = async (req, res) => {
     gender,
     date_of_birth,
     membership_status,
+    address,
+    profile_picture,
   } = req.body;
   try {
     if (
@@ -33,6 +35,7 @@ const signupUser = async (req, res) => {
       !membership_status||
       !address ||
       !profile_picture
+
     ) {
       res.status(400);
       throw new Error("Please add all fields");
@@ -65,7 +68,18 @@ const signupUser = async (req, res) => {
     if (user) {
       // console.log(user._id);
      const token = generateToken(user._id);
-      res.status(201).json({ username, token });
+      res.status(201).json({ 
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        phone_number: user.phone_number,
+        gender: user.gender,
+        date_of_birth: user.date_of_birth,
+        membership_status: user.membership_status,
+        address: user.address,
+        profile_picture: user.profile_picture,
+        token
+       });
     } else {
       res.status(400);
       throw new Error("Invalid user data");
@@ -81,12 +95,24 @@ const signupUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
   try {
-    // Check for user email
+
+    // Check for user username
     const user = await User.findOne({ username });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = generateToken(user._id);
-      res.status(200).json({ username, token });
+      res.status(200).json({ 
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        phone_number: user.phone_number,
+        gender: user.gender,
+        date_of_birth: user.date_of_birth,
+        membership_status: user.membership_status,
+        address: user.address,
+        profile_picture: user.profile_picture,
+        token: token
+       });
     } else {
       res.status(400);
       throw new Error("Invalid credentials");
