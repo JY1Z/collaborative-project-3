@@ -17,7 +17,7 @@ connectDB();
 
 // Use the jobRouter for all "/jobs" routes
 app.use("/api/jobs", jobRouter);
-// Use the userRouter for all "/jobs" routes
+// Use the userRouter for all "/users" routes
 app.use("/api/users", userRouter);
 
 
@@ -26,7 +26,6 @@ app.use(errorHandler);
 
 // app.listen(process.env.PORT, () => {
 //   console.log(`Server running on port ${process.env.PORT}`)
-// })  
 
 module.exports = app;
 
