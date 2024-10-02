@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const EditJobPage = () => {
-  const [job, setJob] = useState(null); // Initialize job state
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const { id } = useParams();
@@ -46,7 +45,6 @@ const EditJobPage = () => {
           throw new Error("Network response was not ok");
         }
         const data = await res.json();
-        setJob(data); // Set the job data
 
         // Initialize form fields with fetched job data
         setTitle(data.title);

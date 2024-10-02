@@ -62,14 +62,22 @@ const JobPage = () => {
         <p>{error}</p>
       ) : (
         <>
-          <h2>{job.title}</h2>
-          <p>Type: {job.type}</p>
-          <p>Description: {job.description}</p>
-          <p>Company: {job.company.name}</p>
-          <p>Email: {job.company.contactEmail}</p>
-          <p>Phone: {job.company.contactPhone}</p>
+          <h2>{job.title} at {job.company.name}</h2>
+          <p>{job.type}</p>
 
-          {isAuthenticated && <div>
+          <p className="description">{job.description}</p>
+
+          {job.location && <p><b>Location:</b> {job.location}</p>}
+          {job.salary && <p><b>Salary:</b> {job.salary}</p>}
+          {job.status && <p><b>Status:</b> {job.status}</p>}
+
+          <div className="companyDiv">
+            <h3>Contact {job.company.name}</h3>
+            <p><b>E-mail:</b> {job.company.contactEmail}</p>
+            <p><b>Phone:</b> {job.company.contactPhone}</p>
+          </div>
+
+          {isAuthenticated && <div className="buttonHolder">
             <button onClick={() => onDeleteClick(job._id)}>Delete</button>
             <button onClick={() => navigate(`/edit-job/${job._id}`)}>
               Edit

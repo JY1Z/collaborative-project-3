@@ -8,6 +8,9 @@ const AddJobPage = () => {
   const [companyName, setCompanyName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [salary, setSalary] = useState("");
+  const [status, setStatus] = useState("");
 
   const navigate = useNavigate();
  
@@ -26,8 +29,6 @@ const AddJobPage = () => {
     } catch (error) {
       console.error(error);
       return false;
-    } finally {
-      navigate("/");
     }
     return true;
   };
@@ -44,9 +45,13 @@ const AddJobPage = () => {
         contactEmail,
         contactPhone,
       },
+      location,
+      salary,
+      status
     };
 
     addJob(newJob);
+    return navigate("/");
   };
 
   return (
@@ -81,20 +86,39 @@ const AddJobPage = () => {
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
         />
-        <label>Contact Email:</label>
+        <label>Company Email:</label>
         <input
           type="text"
           required
           value={contactEmail}
           onChange={(e) => setContactEmail(e.target.value)}
         />
-        <label>Contact Phone:</label>
+        <label>Company Phone:</label>
         <input
           type="text"
           required
           value={contactPhone}
           onChange={(e) => setContactPhone(e.target.value)}
         />
+        <label>Location:</label>
+        <input
+          type="text"
+          required
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+        <label>Salary:</label>
+        <input
+          type="text"
+          required
+          value={salary}
+          onChange={(e) => setSalary(e.target.value)}
+        />
+        <label>Status:</label>
+        <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+        </select>
         <button>Add Job</button>
       </form>
     </div>

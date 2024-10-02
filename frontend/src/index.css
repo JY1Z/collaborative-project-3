@@ -6,6 +6,7 @@
   font-family: "Quicksand";
   color: #333;
 }
+
 .navbar {
   padding: 20px;
   display: flex;
@@ -14,23 +15,44 @@
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
 }
+
 .navbar h1 {
   color: #f1356d;
 }
+
 .navbar .links {
   margin-left: auto;
 }
+
 .navbar a {
   margin-left: 16px;
   text-decoration: none;
   padding: 6px;
+  color: #333;
 }
+
 .navbar a:hover {
   color: #f1356d;
 }
+
+.navbar button {
+  margin-left: 16px;
+  color: white;
+  font-size: normal;
+  font-weight: bolder;
+  background-color: #f1356d;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+}
+
+.navbar button:hover {
+  background-color: #333;
+}
+
 .content {
   max-width: 600px;
-  margin: 40px auto;
+  margin: auto;
   padding: 20px;
 }
 
@@ -41,7 +63,6 @@
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  background-color: #f9f9f9;
 }
 
 .job-preview {
@@ -68,10 +89,6 @@
   color: #666;
 }
 
-.job-preview p span {
-  font-weight: bold;
-}
-
 .job-preview a {
   text-decoration: none;
 }
@@ -82,9 +99,11 @@
   color: #f1356d;
   margin-bottom: 10px;
 }
+
 .job-details div {
   margin: 20px 0;
 }
+
 .job-details button {
   background: #f1356d;
   color: #fff;
@@ -94,21 +113,28 @@
   cursor: pointer;
 }
 
+.description {
+  padding: 0.5rem 0;
+}
+
 /* create new job form */
 .create {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
 }
+
 .create label {
   text-align: left;
   display: block;
 }
+
 .create h2 {
   font-size: 20px;
   color: #f1356d;
   margin-bottom: 30px;
 }
+
 .create input,
 .create textarea,
 .create select {
@@ -119,6 +145,7 @@
   box-sizing: border-box;
   display: block;
 }
+
 .create button {
   background: #f1356d;
   color: #fff;
@@ -128,35 +155,35 @@
   cursor: pointer;
 }
 
-.job-preview button {
-  margin: 5px; /* Adds space around the buttons */
-  border: 1px solid #f1356d; /* Adds a black border */
-  padding: 10px; /* Adds padding inside the buttons */
-  border-radius: 5px; /* Optional: Adds rounded corners */
+.companyDiv {
+  background-color: #eee;
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  margin: 1rem auto;
+  width: 100%;
 }
 
-
-/* Style for the "Add Job" link */
-nav .links a {
-  color: #f1356d;
-  text-decoration: none;
-  margin-right: 15px;
+.companyDiv span {
   font-weight: bold;
 }
 
-/* Style for the email span */
-nav .links span {
-  color: gray;
-  margin-right: 15px;
-  font-style: italic;
+.buttonHolder {
+  display: flex; 
+  flex-direction: row;
+  gap: 0.5rem;
+  margin: auto;
 }
 
-/* Style for the "Log out" button */
-nav .links button {
-  margin: 5px; /* Adds space around the buttons */
-  border: 1px solid #f1356d; /* Adds a black border */
-  padding: 10px; /* Adds padding inside the buttons */
-  border-radius: 5px; /* Optional: Adds rounded corners */
-  border-radius: 5px;
-} 
+.buttonHolder button {
+  background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bolder;
+}
 
+.buttonHolder button:hover {
+  background: #333;
+}
