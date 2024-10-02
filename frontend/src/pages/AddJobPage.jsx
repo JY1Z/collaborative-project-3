@@ -26,6 +26,8 @@ const AddJobPage = () => {
     } catch (error) {
       console.error(error);
       return false;
+    } finally {
+      navigate("/");
     }
     return true;
   };
@@ -45,7 +47,6 @@ const AddJobPage = () => {
     };
 
     addJob(newJob);
-    return navigate("/");
   };
 
   return (
