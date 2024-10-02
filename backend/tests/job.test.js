@@ -13,7 +13,12 @@ const jobs = [
       name: "NewTek Solutions",
       contactEmail: "contact@teksolutions.com",
       contactPhone: "555-555-5555"
-    }
+    },
+    location: "Helsinki",
+    salary:"20",
+    postedDate: "01-09-2024",
+    status: "open"
+
   },
   {
     title: "Junior Backend Developer",
@@ -23,7 +28,11 @@ const jobs = [
       name: "Tech Innovators",
       contactEmail: "hr@techinnovators.com",
       contactPhone: "555-555-1234"
-    }
+    },
+    location: "Espoo",
+    salary:"25",
+    postedDate: "01-10-2024",
+    status: "open"
   },
 ];
 
@@ -57,7 +66,12 @@ describe("Job Controller", () => {
         name: "Cloud Solutions",
         contactEmail: "jobs@cloudsolutions.com",
         contactPhone: "555-555-6789"
-      }
+      },
+      location: "Helsinki",
+      salary : "annual",
+      postedDate: "01-09-2024",
+      status: "open"
+
     };
 
     await api

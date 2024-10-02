@@ -32,8 +32,10 @@ const signupUser = async (req, res) => {
       !phone_number ||
       !gender ||
       !date_of_birth ||
-      !membership_status ||
-      !address
+      !membership_status||
+      !address ||
+      !profile_picture
+
     ) {
       res.status(400);
       throw new Error("Please add all fields");
@@ -93,6 +95,7 @@ const signupUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
   try {
+
     // Check for user username
     const user = await User.findOne({ username });
 
