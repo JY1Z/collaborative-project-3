@@ -68,7 +68,7 @@ describe("Job Controller", () => {
         contactPhone: "555-555-6789"
       },
       location: "Helsinki",
-      salary : "annual",
+      salary : "20",
       postedDate: "01-09-2024",
       status: "open"
 
