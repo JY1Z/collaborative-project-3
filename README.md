@@ -15,7 +15,7 @@
 5. Backend tests for API V2:
 6. URLs for the deployed APIs:
   - URL for API V1:
-  - URL for API V2:
+  - URL for API V2: [API for V2 deployed on Render](https://collaborative-project-3-ft0l.onrender.com)
 
 ---
 
