@@ -13,8 +13,8 @@ const JobPage = () => {
   const [error, setError] = useState(null);
 
   const deleteJob = async (id) => {
-    const user = JSON.parse(localStorage.getItem("user"))
-    const token = user.token
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user.token;
     
     try {
       const res = await fetch(`/api/jobs/${id}`, {

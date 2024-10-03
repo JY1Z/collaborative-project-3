@@ -23,7 +23,7 @@ const signupUser = async (req, res) => {
     membership_status,
     address,
     profile_picture,
-  } = req.body;
+  } = req.body; 
   try {
     if (
       !name ||
@@ -33,8 +33,7 @@ const signupUser = async (req, res) => {
       !gender ||
       !date_of_birth ||
       !membership_status||
-      !address ||
-      !profile_picture
+      !address
 
     ) {
       res.status(400);
