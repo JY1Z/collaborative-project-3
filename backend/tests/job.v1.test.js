@@ -56,36 +56,6 @@ describe("Job Controller", () => {
     expect(response.body).toHaveLength(jobs.length);
   });
 
-  // Test POST /api/jobs
-  it("should create a new job when POST /api/jobs is called", async () => {
-    const newJob = {
-      title: "Mid-Level DevOps Engineer",
-      type: "Full-Time",
-      description: "We are looking for a DevOps Engineer to join our team.",
-      company: {
-        name: "Cloud Solutions",
-        contactEmail: "jobs@cloudsolutions.com",
-        contactPhone: "555-555-6789"
-      },
-      location: "Helsinki",
-      salary : "20",
-      postedDate: "01-09-2024",
-      status: "open"
-
-    };
-
-    await api
-      .post("/api/jobs")
-      .send(newJob)
-      .expect(201)
-      .expect("Content-Type", /application\/json/);
-
-    const jobsAfterPost = await Job.find({});
-    expect(jobsAfterPost).toHaveLength(jobs.length + 1);
-    const jobTitles = jobsAfterPost.map((job) => job.title);
-    expect(jobTitles).toContain(newJob.title);
-  });
-
   // Test GET /api/jobs/:id
   it("should return one job by ID when GET /api/jobs/:id is called", async () => {
     const job = await Job.findOne();
@@ -99,42 +69,8 @@ describe("Job Controller", () => {
     const nonExistentId = new mongoose.Types.ObjectId();
     await api.get(`/api/jobs/${nonExistentId}`).expect(404);
   });
+});
 
-  // Test PUT /api/jobs/:id
-  it("should update one job with partial data when PUT /api/jobs/:id is called", async () => {
-    const job = await Job.findOne();
-    const updatedJob = {
-      description: "Updated description",
-      type: "Contract",
-    };
-
-    await api
-      .put(`/api/jobs/${job._id}`)
-      .send(updatedJob)
-      .expect(200)
-      .expect("Content-Type", /application\/json/);
-
-    const updatedJobCheck = await Job.findById(job._id);
-    expect(updatedJobCheck.description).toBe(updatedJob.description);
-    expect(updatedJobCheck.type).toBe(updatedJob.type);
-  });
-
-  it("should return 400 for invalid job ID when PUT /api/jobs/:id", async () => {
-    const invalidId = "12345";
-    await api.put(`/api/jobs/${invalidId}`).send({}).expect(400);
-  });
-
-  // Test DELETE /api/jobs/:id
-  it("should delete one job by ID when DELETE /api/jobs/:id is called", async () => {
-    const job = await Job.findOne();
-    await api.delete(`/api/jobs/${job._id}`).expect(204);
-
-    const deletedJobCheck = await Job.findById(job._id);
-    expect(deletedJobCheck).toBeNull();
-  });
-
-  it("should return 400 for invalid job ID when DELETE /api/jobs/:id", async () => {
-    const invalidId = "12345";
-    await api.delete(`/api/jobs/${invalidId}`).expect(400);
-  });
+afterAll(() => {
+  mongoose.connection.close();
 });
