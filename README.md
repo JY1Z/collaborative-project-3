@@ -30,7 +30,20 @@
 
 ```js
 // middleware\requireAuth.js
-// Your code part A
+// My code
+//const jwt = require("jsonwebtoken");
+//const User = require("../models/userModel");
+
+//const requireAuth = async (req, res, next) => {
+//  // verify user is authenticated
+//  const { authorization } = req.headers;
+//
+//  if (!authorization) {
+//    return res.status(401).json({ error: "Authorization token required" });
+//  }
+//
+//  const token = authorization.split(" ")[1];
+//
 //  try {
 //    const { _id } = jwt.verify(token, process.env.SECRET);
 //
@@ -41,21 +54,72 @@
 //    res.status(401).json({ error: "Request is not authorized" });
 //  }
 //};
+//
+//module.exports = { requireAuth };
 
-if (!token) {
-  return res.status(401).json({ error: "No token provided" });
-}
+**From ChatGPT**
+const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
 
-if (error.name === "TokenExpiredError") {
-  return res.status(401).json({ error: "Token has expired" });
-}
+const requireAuth = async (req, res, next) => {
+  const { authorization } = req.headers;
 
-if (!process.env.SECRET) {
-  throw new Error("JWT secret is missing in environment variables");
-}
+  // Check if authorization header exists
+  if (!authorization) {
+    return res.status(401).json({ error: "Authorization token required" });
+  }
 
+  const token = authorization.split(" ")[1];
+
+  try {
+    // Verify the token
+    const { _id } = verifyToken(token);
+
+    // Fetch the user from the database
+    const user = await User.findOne({ _id }).select(
+      "_id name username phone_number gender date_of_birth membership_status address profile_picture"
+    );
+
+    if (!user) {
+      return res.status(401).json({ error: "User not found" });
+    }
+
+    // Attach user to the request object
+    req.user = user;
+    next();
+  } catch (error) {
+    handleTokenErrors(error, res, next);
+  }
+};
+
+// Helper function to verify the JWT token
+const verifyToken = (token) => {
+  if (!process.env.SECRET) {
+    throw new Error("JWT secret is missing in environment variables");
+  }
+
+  return jwt.verify(token, process.env.SECRET);
+};
+
+// Error handling function for token-related errors
+const handleTokenErrors = (error, res, next) => {
+  console.error("Authentication error:", error.message);
+
+  if (error.name === "TokenExpiredError") {
+    return res.status(401).json({ error: "Token has expired" });
+  } else if (error.name === "JsonWebTokenError") {
+    return res.status(401).json({ error: "Invalid token" });
+  } else {
+    // For any other errors, propagate them to the global error handler
+    next(error);
+  }
+};
+
+module.exports = { requireAuth };
 
 ```
+Disscusion: if it is better or not
+
 
 ```js
 // File name or function
