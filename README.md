@@ -1,18 +1,14 @@
 # Coding Marathon 3  
 
-- **Group #:**  Group 3
-- Link to the backend: 
-  - [Backend Code for API V1 (without authentication) ](https://github.com/JY1Z/collaborative-project-3/tree/BE-API-noAuth/backend)
-  - [Backend Code for API V2 (with authentication)]([https://github.com/JY1Z/collaborative-project-3/tree/main/backend](https://github.com/JY1Z/collaborative-project-3/tree/BE-API-Auth/backend))  
-- Link to the frontend:  
-[Frontend Code for API V2](https://github.com/JY1Z/collaborative-project-3/tree/main/frontend)
-
-   Code for Frontend V1, which worked with API V1:
-[Frontend Code for API V1](https://github.com/JY1Z/collaborative-project-3/tree/FE-no-auth/frontend/frontend-no-auth)
-
-- URLs for the deployed APIs:
-  - URL for API V1:[API for V1 deployed on Render](https://test-cm3-11.onrender.com/)
-  - URL for API V2: [API for V2 deployed on Render](https://collaborative-project-3-ft0l.onrender.com)
+- **Group #:**  Group 3  
+- Link to the backend:   
+  - [Code for API V1 (without authentication)](https://github.com/JY1Z/collaborative-project-3/tree/BE-API-noAuth/backend)  
+  - [Code for API V2 (with authentication)](https://github.com/JY1Z/collaborative-project-3/tree/BE-API-Auth/backend)    
+- Link to the frontend:    
+  - [Code for the final frontend](https://github.com/JY1Z/collaborative-project-3/tree/main/frontend)    
+- URLs for the deployed APIs:  
+  - URL for API V1:[API for V1 deployed on Render](https://test-cm3-11.onrender.com/)  
+  - URL for API V2: [API for V2 deployed on Render](https://collaborative-project-3-ft0l.onrender.com)  
 
 ---
 
