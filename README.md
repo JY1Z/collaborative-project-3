@@ -31,9 +31,10 @@
 ```js
 // middleware\requireAuth.js
 // My code
+
 //const jwt = require("jsonwebtoken");
 //const User = require("../models/userModel");
-
+//
 //const requireAuth = async (req, res, next) => {
 //  // verify user is authenticated
 //  const { authorization } = req.headers;
@@ -57,7 +58,7 @@
 //
 //module.exports = { requireAuth };
 
-**From ChatGPT**
+// From ChatGPT
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
