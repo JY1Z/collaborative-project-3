@@ -7,7 +7,7 @@
 - Link to the frontend:    
   - [Code for the final frontend](https://github.com/JY1Z/collaborative-project-3/tree/main/frontend)    
 - URLs for the deployed APIs:  
-  - URL for API V1:[API for V1 deployed on Render](https://test-cm3-11.onrender.com/)  
+  - URL for API V1: [API for V1 deployed on Render](https://test-cm3-11.onrender.com/)  
   - URL for API V2: [API for V2 deployed on Render](https://collaborative-project-3-ft0l.onrender.com)  
 
 ---
