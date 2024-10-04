@@ -20,6 +20,10 @@ app.use("/api/jobs", jobRouter);
 // Use the userRouter for all "/users" routes
 app.use("/api/users", userRouter);
 
+// Cloud database for Render 
+app.get('/', (req, res) => {
+    res.send('Server is up!')
+  })
 
 app.use(unknownEndpoint);
 app.use(errorHandler);
