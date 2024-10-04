@@ -20,12 +20,28 @@ const jobs = [
     postedDate: "2024-01-09",
     status: "open"
   },
+  {
+    title: "Product Manager",
+    type: "Full-time",
+    description: "Lead cross-functional teams to deliver product features.",
+    company: {
+      name: "Innovatech Ltd.",
+      contactEmail: "careers@innovatech.com",
+      contactPhone: "444-987-6543"
+    },
+    location: "Austin, TX",
+    salary: 110000,
+    postedDate: "2023-08-30",
+    status: "open"
+  }
 ];
 
 let token = null;
 
 beforeAll(async () => {
   await User.deleteMany({});
+  await Job.deleteMany({});  //没准要删
+
   const result = await api.post("/api/users/signup").send({
     name: "John Doe",
     username: "johndoe", 
@@ -38,6 +54,8 @@ beforeAll(async () => {
     profile_picture: "https://example.com/profile/johndoe.jpg",
   });
   token = result.body.token;
+
+  await Job.insertMany(jobs);
 });
 
 
@@ -59,7 +77,7 @@ describe("Job Controller", () => {
         status: "open"
     }
 
-    await api
+    const response = await api
       .post("/api/jobs")
       .set("Authorization", `Bearer ${token}`)  
       .send(newJob)
@@ -95,18 +113,58 @@ describe("Job Controller", () => {
   // Test DELETE /api/jobs/:id (Delete)
   it("should delete one job by ID when DELETE /api/jobs/:id is called", async () => {
     const job = await Job.findOne();
-    await api.delete(`/api/jobs/${job._id}`).set("Authorization", `Bearer ${token}`).expect(204);
+    await api
+      .delete(`/api/jobs/${job._id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .expect(204);
 
     const deletedJobCheck = await Job.findById(job._id);
     expect(deletedJobCheck).toBeNull();
   });
 
-  it("should return 400 for invalid job ID when PUT /api/jobs/:id", async () => {
-    const invalidId = "12345";
-    await api.put(`/api/jobs/${invalidId}`).set("Authorization", `Bearer ${token}`).send({}).expect(400);
+  // Test GET /api/jobs
+  it("should return all jobs as JSON when GET /api/jobs is called", async () => {
+    const response = await api
+      .get("/api/jobs")
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+
+    expect(response.body).toHaveLength(jobs.length);
   });
 
+  // Test GET /api/jobs/:id
+  it("should return one job by ID when GET /api/jobs/:id is called", async () => {
+    const job = await Job.findOne();
+    await api
+      .get(`/api/jobs/${job._id}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+  });
+
+  it("should return 400 for invalid job ID when PUT /api/jobs/:id", async () => {
+    const invalidId = "12345";
+    await api
+      .put(`/api/jobs/${invalidId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({})
+      .expect(400);
+  });
+
+  it("should return 404 for a non-existing job ID", async () => {
+    const nonExistentId = new mongoose.Types.ObjectId();
+    await api.get(`/api/jobs/${nonExistentId}`).expect(404);
+  });
+
+  it("should return 400 for invalid job ID when DELETE /api/jobs/:id", async () => {
+    const invalidId = "12345";
+    await api
+      .delete(`/api/jobs/${invalidId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .expect(400);
+  });
 })
+  
+
 
 afterAll(() => {
     mongoose.connection.close();
