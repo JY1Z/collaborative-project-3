@@ -119,7 +119,7 @@ const handleTokenErrors = (error, res, next) => {
 module.exports = { requireAuth };
 
 ```
-Disscusion: if it is better or not
+Disscusion: Code from ChatGPT is better structured, and scalable due to improved error handling, better separation of concerns, and more informative feedback to the client.
 
 
 ```js
