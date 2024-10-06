@@ -30,8 +30,8 @@
 
 ```js
 // middleware\requireAuth.js
-// My code
 
+// My code
 //const jwt = require("jsonwebtoken");
 //const User = require("../models/userModel");
 //
@@ -119,7 +119,7 @@ const handleTokenErrors = (error, res, next) => {
 module.exports = { requireAuth };
 
 ```
-Disscusion: Code from ChatGPT is better structured, and scalable due to improved error handling, better separation of concerns, and more informative feedback to the client.
+**Disscusion:** Code from ChatGPT is better structured, and scalable due to improved error handling, better separation of concerns, and more informative feedback to the client.
 
 
 ```js
