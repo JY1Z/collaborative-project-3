@@ -69,9 +69,41 @@ export default JobListings;
 **Disscusion:** The code is functional and clean. Key improvements include adding conditional rendering to handle no jobs, using optional chaining to prevent crashes if company data is missing, and providing a fallback message. Overall, it's well-structured but can benefit from enhanced error handling.
 
 ```js
-// File name or function
-// Your code part B
+// src/context/AuthContextProvider.jsx
+import { useState } from "react"
+import { AuthContext } from "./AuthContext"
+
+const AuthContextProvider = ({ children }) => {
+    // Santtu's version
+    const user = localStorage.getItem("user")
+    const bool = user ? true : false
+    const [isAuthenticated, setIsAuthenticated] = useState(bool);
+
+    // Copilot's suggestion: Clearer variable names
+    const storedUser = localStorage.getItem("user");
+    const initialAuthState = storedUser ? true : false;
+    const [isAuthenticated, setIsAuthenticated] = useState(initialAuthState);
+
+    const logout = () => {
+        setIsAuthenticated(false)
+        localStorage.removeItem("user")
+        // Copilot also suggests that I add more here, for ex. redirecting the user
+        // However, that exact thing is currently handled in the button click event in the actual component
+    }
+
+    return (
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout }}>
+            {children}
+        </AuthContext.Provider>
+    )
+}
+
+export default AuthContextProvider
+
 ```
+**Discussion:** While Copilot can be very useful for providing quick routine codes, it obviously doesn't know the entire context of the application from a human user perspective. I do agree with Copilot's assessment on using clearer variable names, it is a bad habit of mine and its variable name suggestions make the code clearly more readable for other people. 
+
+It is worth noting that Copilot suggested adding Error Handling, but was unable to say where it would be needed. This is a pretty good example of how AI often provides redundant filler text. It is whatever when it comes to coding, since any code changes should be reviewed by a human anyway, however it makes AI text very frustrating to read and easily recognisable as AI.
 
 ### Backend
 
