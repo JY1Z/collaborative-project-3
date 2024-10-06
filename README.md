@@ -17,9 +17,56 @@
 ### Frontend
 
 ```js
-// File name or function
-// Your code part A
+// src/components/JobListings.jsx
+
+// My code
+import { Link } from "react-router-dom";
+
+const JobListings = ({ jobs }) => {
+  return (
+    <div className="job-list">
+      {jobs.map((job) => (
+
+        <div className="job-preview" key={job.id}>
+          <Link to={`/jobs/${job.id}`}>
+            <h2>{job.title}</h2>
+          </Link>
+          <p>Type: {job.type}</p>
+          <p>Company: {job.company.name}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default JobListings;
+
+// From ChatGPT
+import { Link } from "react-router-dom";
+
+const JobListings = ({ jobs }) => {
+  return (
+    <div className="job-list">
+      {jobs.length > 0 ? (
+        jobs.map((job) => (
+          <div className="job-preview" key={job.id}>
+            <Link to={`/jobs/${job.id}`}>
+              <h2>{job.title}</h2>
+            </Link>
+            <p>Type: {job.type}</p>
+            <p>Company: {job.company?.name || 'Unknown Company'}</p>
+          </div>
+        ))
+      ) : (
+        <p>No job listings available</p>
+      )}
+    </div>
+  );
+};
+
+export default JobListings;
 ```
+**Disscusion:** The code is functional and clean. Key improvements include adding conditional rendering to handle no jobs, using optional chaining to prevent crashes if company data is missing, and providing a fallback message. Overall, it's well-structured but can benefit from enhanced error handling.
 
 ```js
 // File name or function
